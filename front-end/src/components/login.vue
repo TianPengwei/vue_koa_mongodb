@@ -11,7 +11,7 @@
             </el-input>
         </div>
         <div class="tac mt15">
-            <el-button type="primary">登录</el-button>
+            <el-button type="primary">登&nbsp;&nbsp;录</el-button>
         </div>
     </div>
 </template>
@@ -20,7 +20,7 @@
     export default {
         data() {
             return {
-                userName : '1',
+                userName : '',
                 password : ''
             }
         },
