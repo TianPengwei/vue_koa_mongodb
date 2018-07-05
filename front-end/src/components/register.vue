@@ -43,7 +43,7 @@
                     if(o.status == '0') {
                         setTimeout(()=>{
                             this.$router.push({
-                                path : '/index'
+                                path : '/'
                             });
                         },3000);
                     }
