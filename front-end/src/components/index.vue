@@ -1,15 +1,15 @@
 <template>
     <div>
-        首页
+        <lay-out></lay-out>
     </div>
 </template>
 
 <script>
+    import layOut from '@/layout/index.vue';
     export default {
-        data() {
-            return {
-            }
-        },
+       components : {
+           layOut
+       } 
     }
 </script>
 

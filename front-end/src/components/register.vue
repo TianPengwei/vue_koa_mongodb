@@ -1,17 +1,17 @@
 <template>
     <div class="wrap">
         <div class="mt15">
-            <el-input placeholder="请输入用户名" v-model="userName">
+            <el-input placeholder="请输入用户名" auto-complete="off" v-model="userName" clearable>
                 <template slot="prepend">用户名：</template>
             </el-input>
         </div>
         <div class="mt15">
-            <el-input type="password" placeholder="请输入密码" v-model="password">
+            <el-input type="password" placeholder="请输入密码" v-model="password" clearable>
                 <template slot="prepend">密&nbsp;&nbsp;&nbsp;码：</template>
             </el-input>
         </div>
         <div class="tac mt15">
-            <el-button type="primary" @click="goRegister">注&nbsp;&nbsp;册</el-button>
+            <el-button style="width:100px;" type="primary" :loading="isRegisting" @click="goRegister">注册</el-button>
         </div>
     </div>
 </template>
@@ -22,12 +22,14 @@
         data() {
             return {
                 userName : '',
-                password : ''
+                password : '',
+                isRegisting : false
             }
         },
         mounted() {},
         methods: {
             goRegister() {
+                this.isRegisting = true;
                 axios({
                     url : 'http://localhost:3000/register',
                     method : 'post',
@@ -36,7 +38,19 @@
                         password : this.password
                     }
                 }).then((res)=>{
-                    console.log(res.data);
+                    this.isRegisting = false;
+                    const o = res.data;
+                    if(o.status == '0') {
+                        setTimeout(()=>{
+                            this.$router.push({
+                                path : '/index'
+                            });
+                        },3000);
+                    }
+                    this.$message(res.data.msg);
+                }).catch((err)=>{
+                    this.$message('系统异常');
+                    this.isRegisting = false;
                 });
             }
         },

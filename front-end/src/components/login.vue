@@ -11,19 +11,48 @@
             </el-input>
         </div>
         <div class="tac mt15">
-            <el-button type="primary">登&nbsp;&nbsp;录</el-button>
+            <el-button style="width:100px;" @click="login" type="primary" :loading="isLoading">登&nbsp;&nbsp;录</el-button>
         </div>
     </div>
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
         data() {
             return {
                 userName : '',
-                password : ''
+                password : '',
+                isLoading : false
             }
         },
+        methods : {
+            login() {
+                this.isLoading = true;
+                axios({
+                    url : 'http://localhost:3000/login',
+                    method : 'post',
+                    data : {
+                        userName : this.userName,
+                        password : this.password
+                    }
+                }).then((res)=>{
+                    const data = res.data;
+                    if(data.status == '0') {
+                        setTimeout(()=>{
+                            this.$router.push({
+                                path : '/'
+                            });
+                        },3000);
+                    }
+                    this.isLoading = false;
+                    this.$message(data.msg);
+                }).catch((err)=>{
+                    this.$message('系统异常');
+                    this.isRegisting = false;
+                });;
+            }
+        }
     }
 </script>
 

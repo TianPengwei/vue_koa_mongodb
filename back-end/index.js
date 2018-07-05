@@ -17,6 +17,7 @@ app.use(cors())
 const routerConfig = require('./api/routes');
 routerConfig.getRouter(router);
 routerConfig.register();
+routerConfig.login();
 
 // router.get('/test/:id',(ctx,next)=>{
 //     ctx.body = `页面id：${ctx.params.id}`;
